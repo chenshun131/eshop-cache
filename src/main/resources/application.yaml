@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  cache:
+    type: EHCACHE
+    ehcache:
+      config: classpath:ehcache.xml
+# log info
+logging:
+  config: classpath:logback-eshop.xml
