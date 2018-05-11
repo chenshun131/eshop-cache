@@ -1,7 +1,6 @@
 package com.chenshun.eshop.util.listener;
 
 import com.chenshun.eshop.util.spring.SpringContext;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -25,9 +24,6 @@ public class InitListener implements ServletContextListener {
         ServletContext sc = sce.getServletContext();
         ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(sc);
         SpringContext.setApplicationContext(context);
-
-        // start Kafka
-        new Thread(new KafkaConsumer("cache-message")).start();
     }
 
     @Override

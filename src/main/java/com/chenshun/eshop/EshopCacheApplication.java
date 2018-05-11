@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.annotation.EnableKafka;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
@@ -11,6 +12,7 @@ import redis.clients.jedis.JedisPoolConfig;
 import java.util.HashSet;
 import java.util.Set;
 
+@EnableKafka
 @EnableCaching
 @SpringBootApplication
 public class EshopCacheApplication {

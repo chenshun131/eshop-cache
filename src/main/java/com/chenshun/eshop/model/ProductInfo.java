@@ -101,4 +101,19 @@ public class ProductInfo {
         this.shopId = shopId;
     }
 
+    @Override
+    public String toString() {
+        return "ProductInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", pictureList='" + pictureList + '\'' +
+                ", specification='" + specification + '\'' +
+                ", service='" + service + '\'' +
+                ", color='" + color + '\'' +
+                ", size='" + size + '\'' +
+                ", shopId=" + shopId +
+                '}';
+    }
+
 }

@@ -48,4 +48,14 @@ public class ShopInfo {
         this.goodCommentRate = goodCommentRate;
     }
 
+    @Override
+    public String toString() {
+        return "ShopInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                ", goodCommentRate=" + goodCommentRate +
+                '}';
+    }
+
 }
