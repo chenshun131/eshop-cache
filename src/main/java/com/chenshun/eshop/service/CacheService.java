@@ -67,10 +67,26 @@ public interface CacheService {
     void saveProductInfo2RedisCache(ProductInfo productInfo);
 
     /**
+     * 从 Redis 中获取商品信息
+     *
+     * @param productId
+     * @return
+     */
+    ProductInfo getProductInfoFromRedisCache(Long productId);
+
+    /**
      * 将店铺信息保存到本地的 Redis 缓存中
      *
      * @param shopInfo
      */
     void savShopInfo2RedisCache(ShopInfo shopInfo);
+
+    /**
+     * 从 Redis 中获取店铺信息
+     *
+     * @param shopId
+     * @return
+     */
+    ShopInfo getShopInfoFromRedisCache(Long shopId);
 
 }

@@ -12,7 +12,6 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.JedisCluster;
 
 /**
  * User: mew <p />
@@ -116,6 +115,13 @@ public class CacheServiceImpl implements CacheService {
         logger.debug("save ProductInfo to Redis => {}={}", key, value);
     }
 
+    @Override
+    public ProductInfo getProductInfoFromRedisCache(Long productId) {
+        String key = "product_info_" + productId;
+        String json = redisDAO.get(key);
+        return JSONObject.parseObject(json, ProductInfo.class);
+    }
+
     /**
      * 将店铺信息保存到本地的 Redis 缓存中
      *
@@ -127,6 +133,13 @@ public class CacheServiceImpl implements CacheService {
         String value = JSONObject.toJSONString(shopInfo);
         redisDAO.set(key, value);
         logger.debug("save ShopInfo to Redis => {}={}", key, value);
+    }
+
+    @Override
+    public ShopInfo getShopInfoFromRedisCache(Long shopId) {
+        String key = "shop_info_" + shopId;
+        String json = redisDAO.get(key);
+        return JSONObject.parseObject(json, ShopInfo.class);
     }
 
 }

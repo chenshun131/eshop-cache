@@ -121,6 +121,14 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
         <!-- JMS END -->
+
+        <!-- zookeeper START-->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.12</version>
+        </dependency>
+        <!-- zookeeper END-->
     </dependencies>
 
     <build>

@@ -1,7 +1,6 @@
 package com.chenshun.eshop.dao;
 
 import com.chenshun.eshop.util.SerializationUtil;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Repository;
 import redis.clients.jedis.JedisCluster;
 
@@ -28,6 +27,9 @@ public class RedisDAO {
 
     public String get(String key) {
         byte[] result = jedisCluster.get(SerializationUtil.serialize(key));
+        if (result == null) {
+            return null;
+        }
         return SerializationUtil.deserialize(result, String.class);
     }
 

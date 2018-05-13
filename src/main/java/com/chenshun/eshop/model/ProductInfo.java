@@ -26,6 +26,8 @@ public class ProductInfo {
 
     private Long shopId;
 
+    private String modifiedTime;
+
     public ProductInfo() {
     }
 
@@ -101,6 +103,14 @@ public class ProductInfo {
         this.shopId = shopId;
     }
 
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
     @Override
     public String toString() {
         return "ProductInfo{" +
@@ -113,6 +123,7 @@ public class ProductInfo {
                 ", color='" + color + '\'' +
                 ", size='" + size + '\'' +
                 ", shopId=" + shopId +
+                ", modifiedTime='" + modifiedTime + '\'' +
                 '}';
     }
 

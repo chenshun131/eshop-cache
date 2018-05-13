@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.scheduling.annotation.EnableAsync;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
@@ -12,6 +13,7 @@ import redis.clients.jedis.JedisPoolConfig;
 import java.util.HashSet;
 import java.util.Set;
 
+@EnableAsync
 @EnableKafka
 @EnableCaching
 @SpringBootApplication
