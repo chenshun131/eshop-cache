@@ -86,6 +86,7 @@ public class KafkaConsumer {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            logger.debug("current date[{}] is after existed date[{}]", productInfo.getModifiedTime(), existedProductInfo.getModifiedTime());
         } else {
             logger.debug("existed product info is null......");
         }

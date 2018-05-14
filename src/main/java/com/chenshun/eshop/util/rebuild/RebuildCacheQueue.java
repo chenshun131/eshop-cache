@@ -12,7 +12,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class RebuildCacheQueue {
 
-    private ArrayBlockingQueue<ProductInfo> queue = new ArrayBlockingQueue<>(100);
+    private ArrayBlockingQueue<ProductInfo> queue = new ArrayBlockingQueue<>(1000);
 
     private RebuildCacheQueue() {
     }

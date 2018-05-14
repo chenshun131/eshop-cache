@@ -26,7 +26,7 @@ public class ZookeeperSession {
         try {
             this.zooKeeper = new ZooKeeper("ci-server:2181", 5000, new ZookeeperWatcher());
             // 给一个状态 CONNECTING，连接中
-            logger.info("Zookeeper session State => ", zooKeeper.getState());
+            logger.info("Zookeeper session State => {}", zooKeeper.getState());
             countDownLatch.await();
             logger.info("ZooKeeper session established......");
         } catch (IOException | InterruptedException e) {
@@ -81,7 +81,6 @@ public class ZookeeperSession {
                     Thread.sleep(1000);
                     zooKeeper.create(path, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
                 } catch (InterruptedException | KeeperException e1) {
-                    e1.printStackTrace();
                     count++;
                     logger.debug("the {} times try to acquire lock for {}......", count, path);
                     continue;
@@ -154,6 +153,16 @@ public class ZookeeperSession {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean createNode(String path) {
+        try {
+            zooKeeper.create(path, "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
