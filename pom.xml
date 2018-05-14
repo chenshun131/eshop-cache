@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.chenshun</groupId>
-    <artifactId>eshop</artifactId>
+    <artifactId>eshop-cache</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 

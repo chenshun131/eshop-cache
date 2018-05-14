@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chenshun.eshop.model.ProductInfo;
 import com.chenshun.eshop.model.ShopInfo;
 import com.chenshun.eshop.service.CacheService;
+import com.chenshun.eshop.util.prewarm.CachePrewarmThread;
 import com.chenshun.eshop.util.rebuild.RebuildCacheQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,6 +84,14 @@ public class CacheController {
         if (shopInfo == null) {
         }
         return shopInfo;
+    }
+
+    /**
+     * 预热缓存
+     */
+    @RequestMapping("prewarmCache")
+    public void prewarmCache() {
+        new Thread(new CachePrewarmThread()).start();
     }
 
 }
