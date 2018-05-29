@@ -91,7 +91,7 @@ public class KafkaConsumer {
             logger.debug("existed product info is null......");
         }
         cacheService.saveProductInfo2LocalCache(productInfo);
-        logger.debug("获取刚保存到本地缓存的商品信息：" + cacheService.getProductInfoFromLocalCache(productInfo.getId()));
+        logger.debug("获取刚保存到本地缓存的商品信息：{}", cacheService.getProductInfoFromLocalCache(productInfo.getId()));
         cacheService.saveProductInfo2RedisCache(productInfo);
         // 释放分布式锁
         zkSession.releaseDistributedLock(productInfo.getId());
@@ -104,7 +104,7 @@ public class KafkaConsumer {
      */
     private void processShopInfoChangeMessage(ShopInfo shopInfo) {
         cacheService.saveShopInfo2LocalCache(shopInfo);
-        logger.debug("获取刚保存到本地缓存的店铺信息：" + cacheService.getShopInfoFromLocalCache(shopInfo.getId()));
+        logger.debug("获取刚保存到本地缓存的店铺信息：{}", cacheService.getShopInfoFromLocalCache(shopInfo.getId()));
         cacheService.savShopInfo2RedisCache(shopInfo);
     }
 

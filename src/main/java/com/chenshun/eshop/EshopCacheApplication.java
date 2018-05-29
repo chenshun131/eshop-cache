@@ -2,6 +2,7 @@ package com.chenshun.eshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -16,6 +17,7 @@ import java.util.Set;
 @EnableAsync
 @EnableKafka
 @EnableCaching
+@ServletComponentScan
 @SpringBootApplication
 public class EshopCacheApplication {
 

@@ -1,13 +1,13 @@
 package com.chenshun.eshop.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.chenshun.eshop.dao.RedisDAO;
+import com.chenshun.eshop.hystrix.command.GetProductInfoFromRedisCacheCommand;
+import com.chenshun.eshop.hystrix.command.GetShopInfoFromRedisCacheCommand;
+import com.chenshun.eshop.hystrix.command.SaveProductInfo2RedisCacheCommand;
+import com.chenshun.eshop.hystrix.command.SaveShopInfo2RedisCacheCommand;
 import com.chenshun.eshop.model.ProductInfo;
 import com.chenshun.eshop.model.ShopInfo;
 import com.chenshun.eshop.service.CacheService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,16 +19,12 @@ import org.springframework.stereotype.Service;
  * Version: V1.0  <p />
  * Description: 缓存实现类 <p />
  */
+@Slf4j
 @CacheConfig(cacheNames = "cacheService")
 @Service
 public class CacheServiceImpl implements CacheService {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private static final String CACHE_NAME = "local";
-
-    @Autowired
-    private RedisDAO redisDAO;
 
     /**
      * 将商品信息保存到本地缓存中
@@ -108,18 +104,13 @@ public class CacheServiceImpl implements CacheService {
      * @param productInfo
      */
     @Override
-    public void saveProductInfo2RedisCache(ProductInfo productInfo) {
-        String key = "product_info_" + productInfo.getId();
-        String value = JSONObject.toJSONString(productInfo);
-        redisDAO.set(key, value);
-        logger.debug("save ProductInfo to Redis => {}={}", key, value);
+    public Boolean saveProductInfo2RedisCache(ProductInfo productInfo) {
+        return new SaveProductInfo2RedisCacheCommand(productInfo).execute();
     }
 
     @Override
     public ProductInfo getProductInfoFromRedisCache(Long productId) {
-        String key = "product_info_" + productId;
-        String json = redisDAO.get(key);
-        return JSONObject.parseObject(json, ProductInfo.class);
+        return new GetProductInfoFromRedisCacheCommand(productId).execute();
     }
 
     /**
@@ -128,18 +119,13 @@ public class CacheServiceImpl implements CacheService {
      * @param shopInfo
      */
     @Override
-    public void savShopInfo2RedisCache(ShopInfo shopInfo) {
-        String key = "shop_info_" + shopInfo.getId();
-        String value = JSONObject.toJSONString(shopInfo);
-        redisDAO.set(key, value);
-        logger.debug("save ShopInfo to Redis => {}={}", key, value);
+    public Boolean savShopInfo2RedisCache(ShopInfo shopInfo) {
+        return new SaveShopInfo2RedisCacheCommand(shopInfo).execute();
     }
 
     @Override
     public ShopInfo getShopInfoFromRedisCache(Long shopId) {
-        String key = "shop_info_" + shopId;
-        String json = redisDAO.get(key);
-        return JSONObject.parseObject(json, ShopInfo.class);
+        return new GetShopInfoFromRedisCacheCommand(shopId).execute();
     }
 
 }

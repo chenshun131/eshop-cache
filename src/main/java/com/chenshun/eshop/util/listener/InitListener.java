@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * User: mew <p />
  * Time: 18/5/10 17:57  <p />
  * Version: V1.0  <p />
- * Description:  <p />
+ * Description: 系统初始化的监听器 <p />
  */
 @WebListener
 public class InitListener implements ServletContextListener {
@@ -48,7 +48,7 @@ public class InitListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         // 关闭线程
-        threadPoolExecutor.shutdown();
+        threadPoolExecutor.shutdownNow();
     }
 
 }

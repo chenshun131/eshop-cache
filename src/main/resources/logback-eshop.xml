@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <logger name="org.springframework.web" level="INFO"/>
-
-    <!-- 文件输出格式 -->
-    <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n"/>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- 文件输出格式 : %d:表示日期 %thread:表示线程名 %-5level:级别从左显示5个字符宽度 %msg:日志消息 %n:是换行符 %L:日志输出行 -->
+    <property name="PATTERN"
+              value="%-12(%red(%d{yyyy-MM-dd HH:mm:ss.SSS})) |-%highlight(%-5level) %green([%thread]) %boldMagenta(%c) %black([%L]) -| %cyan(%msg%n)"/>
     <!-- 测试环境 test文件路径 -->
-    <property name="TEST_FILE_PATH" value="/Users/mew/Desktop/AllMyFile/Log/springboot/logs"/>
+    <property name="TEST_FILE_PATH" value="/Users/chenshun131/Desktop/AllMyFile/Datas/Logs/springboot/service.log"/>
     <!-- 生产环境 pro文件路径 -->
-    <property name="PRO_FILE_PATH" value="/Users/mew/Desktop/AllMyFile/Log/springboot/logs"/>
+    <property name="PRO_FILE_PATH" value="/opt/roncoo/logs"/>
+
+    <contextName>${APP_Name}</contextName>
 
     <!-- 开发环境 -->
     <springProfile name="dev">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
                 <pattern>${PATTERN}</pattern>
+                <charset>UTF-8</charset>
             </encoder>
         </appender>
         <logger name="com.chenshun.eshop" level="debug"/>
+
+        <!--<logger name="org.springframework.jdbc.core.JdbcTemplate" level="debug"/>-->
+        <!-- log4jdbc -->
+        <!--<logger name="jdbc.sqltiming" level="INFO"/>-->
+        <!-- jdbc，使得控制台可以打印 SQL 执行语句 -->
+        <!--<logger name="java.sql.Connection" level="debug"/>-->
+        <!--<logger name="java.sql.Statement" level="debug"/>-->
+        <!--<logger name="java.sql.PreparedStatement" level="debug"/>-->
+        <!--<logger name="java.sql.ResultSet" level="debug"/>-->
+
         <root level="info">
             <appender-ref ref="CONSOLE"/>
         </root>
@@ -36,6 +48,7 @@
             </rollingPolicy>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>${PATTERN}</pattern>
+                <charset>UTF-8</charset>
             </layout>
         </appender>
         <root level="info">
@@ -53,6 +66,7 @@
             </rollingPolicy>
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <pattern>${PATTERN}</pattern>
+                <charset>UTF-8</charset>
             </layout>
         </appender>
         <root level="warn">

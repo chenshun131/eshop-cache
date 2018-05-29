@@ -6,8 +6,7 @@ import com.chenshun.eshop.model.ShopInfo;
 import com.chenshun.eshop.service.CacheService;
 import com.chenshun.eshop.util.prewarm.CachePrewarmThread;
 import com.chenshun.eshop.util.rebuild.RebuildCacheQueue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,10 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
  * Version: V1.0  <p />
  * Description: 缓存 Controller <p />
  */
+@Slf4j
 @RestController
 public class CacheController {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private CacheService cacheService;
@@ -44,12 +42,12 @@ public class CacheController {
         }
         // 先从 Redis 中获取数据
         ProductInfo productInfo = cacheService.getProductInfoFromRedisCache(productId);
-        logger.debug("从redis中获取缓存，商品信息={}", productInfo);
+        log.debug("从redis中获取缓存，商品信息={}", productInfo);
 
         // 如果 Redis 没有数据，再从 Ehcache 中获取数据
         if (productInfo == null) {
             productInfo = cacheService.getProductInfoFromLocalCache(productId);
-            logger.debug("从ehcache中获取缓存，商品信息={}", productInfo);
+            log.debug("从ehcache中获取缓存，商品信息={}", productInfo);
         }
 
         // 如果 Ehcahce 也没有数据，再从数据源拉取数据，重建缓存
@@ -72,12 +70,12 @@ public class CacheController {
         }
         // 先从 Redis 中获取数据
         ShopInfo shopInfo = cacheService.getShopInfoFromRedisCache(shopId);
-        logger.debug("从redis中获取缓存，店铺信息={}", shopInfo);
+        log.debug("从redis中获取缓存，店铺信息={}", shopInfo);
 
         // 如果 Redis 没有数据，再从 Ehcache 中获取数据
         if (shopInfo == null) {
             shopInfo = cacheService.getShopInfoFromLocalCache(shopId);
-            logger.debug("从ehcache中获取缓存，店铺信息={}", shopInfo);
+            log.debug("从ehcache中获取缓存，店铺信息={}", shopInfo);
         }
 
         // 如果 Ehcahce 也没有数据，再从数据源拉取数据，重建缓存

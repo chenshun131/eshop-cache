@@ -64,7 +64,7 @@ public interface CacheService {
      *
      * @param productInfo
      */
-    void saveProductInfo2RedisCache(ProductInfo productInfo);
+    Boolean saveProductInfo2RedisCache(ProductInfo productInfo);
 
     /**
      * 从 Redis 中获取商品信息
@@ -79,7 +79,7 @@ public interface CacheService {
      *
      * @param shopInfo
      */
-    void savShopInfo2RedisCache(ShopInfo shopInfo);
+    Boolean savShopInfo2RedisCache(ShopInfo shopInfo);
 
     /**
      * 从 Redis 中获取店铺信息

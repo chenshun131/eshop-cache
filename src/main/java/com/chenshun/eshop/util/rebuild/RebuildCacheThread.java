@@ -4,8 +4,7 @@ import com.chenshun.eshop.model.ProductInfo;
 import com.chenshun.eshop.service.CacheService;
 import com.chenshun.eshop.util.spring.SpringContext;
 import com.chenshun.eshop.util.zookeeper.ZookeeperSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,9 +16,8 @@ import java.util.Date;
  * Version: V1.0  <p />
  * Description: 缓存重建线程 : 不断从 RebuildCacheQueue 中取出队列的值与 Redis 中的数据进行比较，如果比 Redis 中的数据新则覆盖 Redis 中的数据 <p />
  */
+@Slf4j
 public class RebuildCacheThread implements Runnable {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void run() {
@@ -39,16 +37,16 @@ public class RebuildCacheThread implements Runnable {
                     Date date = sdf.parse(productInfo.getModifiedTime());
                     Date existedDate = sdf.parse(existedProductInfo.getModifiedTime());
                     if (date.before(existedDate)) {
-                        logger.debug("current date[{}] is before existed date[{}]", productInfo.getModifiedTime(),
+                        log.debug("current date[{}] is before existed date[{}]", productInfo.getModifiedTime(),
                                 existedProductInfo.getModifiedTime());
                         continue;
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                logger.debug("current date[{}] is after existed date[{}]", productInfo.getModifiedTime(), existedProductInfo.getModifiedTime());
+                log.debug("current date[{}] is after existed date[{}]", productInfo.getModifiedTime(), existedProductInfo.getModifiedTime());
             } else {
-                logger.debug("existed product info is null......");
+                log.debug("existed product info is null......");
             }
             // 更新 本地缓存 和 Redis 缓存
             cacheService.saveProductInfo2LocalCache(productInfo);
